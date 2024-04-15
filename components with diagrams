@@ -1,0 +1,75 @@
+    The "User" is the person interacting with the "Browser"
+    The "Browser" represents the user interface where the user actions take place.
+    The "Router" directs the HTTP requests to the appropriate "Controller."
+    The "Controller" processes the request, interacts with the "Model" if necessary, and prepares the data for the "View."
+    The "Model" handles data manipulation and database interactions.
+    The "View" presents the final output to the user.
+    The "DB" represents the database where the data is stored and retrieved by the model.
+
+       +--------+
+       | User   |
+       +---+----+
+           | ^
+           v |
+       +--------+     +--------+
+       | Browser|---->| Router |
+       +---+----+     +--------+
+           ^            |
+	   |            |
+                        |
+      +----+-----+      |
+      |Controller|<------
+      +----+-----+
+      | ^      |^ 
+      v |      v|
+ +------+      +--------+
+ |Model |      |  View  |
+ +----+-+      +--------+
+    ^ |
+    | v
++----+--+
+|  DB   |
++----+--+
+
+    Model: This is the component responsible for managing the data and business logic of the application. It retrieves data from the database (DB) and performs any necessary operations on the data before sending it to the controller. It represents the state of the application, sometimes being able to notify the view of changes to render new data.
+
+    View: The view is what the user ultimately sees—it's the presentation layer composed of the UI components. It takes data, provided by the controller, and displays it to the user. In a web application, this would typically be your HTML, CSS, and some JavaScript enhancing the user interface. However, the view doesn't process data; it only presents it.
+
+    Controller: Acting as an intermediary between the Model and the View, the controller receives user inputs, usually as actions or events (like button clicks), interprets them, and decides what to do next. Depending on the user interaction, it will make calls to model objects to retrieve data or update the state. After the model returns the data, the controller will send it to the view to be displayed.
+
+    Router: Sometimes considered part of the controller, the router is essentially the traffic director of the application. It takes requests from the browser, decides which controller should handle the request, and then routes the request to the appropriate controller. The router defines the URL patterns that map to different controllers and actions.
+
+    Browser: This is the client-side of the architecture where the user interacts with the View. When a user does something that requires a data change, like submitting a form, the browser sends this request to the router, which then consults the controller.
+
+Connecting it all together:
+
+When a user interacts with the application through the browser (for example, clicking a 'Save' button on a form), the browser sends this request to the router. The router interprets the URL and the action required, directing the request to the appropriate controller.
+
+The controller takes over, processing the request. If the action involves data retrieval or manipulation, the controller interacts with the model. The model accesses the database if needed, performs the required operations, and then returns data to the controller.
+
+With the data from the model, the controller selects the view that should present the data and sends the data to it. The view then generates the new or updated UI, which the browser displays to the user. The cycle can then begin again with the user's next action.
+
+This process ensures a separation of concerns, which means that each component of the MVC architecture has a specific job, and they can often be modified independently of one another. This separation allows for modular development and easier testing, maintenance, and scalability of web applications.
+
+Here is some example usage below:
+
+    Browser: Any web browser can be used here (Chrome, Firefox, Safari, etc.), but this is more about what is rendered in the browser for the user to interact with. Front-end frameworks like React or Angular can be used to enhance the interaction.
+
+    Router: For Node.js environments, Express.js is often used to define routes. It acts as the server framework that handles HTTP requests and routes them to the correct controller.
+
+    Controller: The controller logic is usually custom code written within the framework you're using. In a Node.js/Express.js application, the controller functions would be JavaScript functions you write within your Express route definitions.
+
+    Model: Mongoose is a popular Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and translates between objects in code and the representation of those objects in MongoDB.
+
+    View: EJS, Pug, or Handlebars are all templating engines that can be used with Express.js to generate HTML markup with JavaScript. They render the views based on the data provided by the controller.
+
+    DB: For the database, MongoDB is a widely used NoSQL database that pairs well with Mongoose for modeling and querying data.
+
+Putting it all together, you might have an application where:
+
+    The Browser displays a web page using React.
+    The Router in Express.js handles incoming requests and directs them to the appropriate controller.
+    The Controller is a set of Express.js route handlers that process the requests.
+    The Model is defined in Mongoose schemas and models that interact with MongoDB.
+    The View is generated using EJS templates that are rendered by Express.js and sent to the browser.
+    The DB is MongoDB, storing and managing the application's data.
